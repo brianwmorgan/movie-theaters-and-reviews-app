@@ -11,6 +11,14 @@ function list(isShowing) {
   return knex("movies").select("*");
 };
 
+function read(movieId) {
+  return knex("movies")
+    .select("*")
+    .where({ movie_id: movieId })
+    .first();
+};
+
 module.exports = {
   list,
+  read,
 };
