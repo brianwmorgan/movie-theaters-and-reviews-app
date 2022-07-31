@@ -38,33 +38,7 @@ function validateReviewUpdateFields(req, res, next) {
 
 // HTTP METHODS //
 
-// REFACTOR FOR TRY/CATCH
-// async function update(req, res) {
-//   const { review } = res.locals;
-//   const { update } = res.locals;
-//   await service.update(update, review.review_id);
-//   const updatedReview = await service.read(review.review_id);
-//   const critic = await service.getCritic(review.critic_id);
-
-//   res.status(200).json({ data: { ...updatedReview, critic: critic[0] } });
-// }
-
-async function update(req, res) {
-	const newReview = {
-		...req.body.data,
-		review_id: res.locals.review.review_id,
-	}
-
-	await service.update(newReview);
-	const review = await service.read(res.locals.review.review_id);
-
-	const reviewToReturn = {
-		...review,
-		critic: await service.readCritic(res.locals.review.critic_id),
-	}
-
-	res.json({ data: reviewToReturn });
-}
+async function update(req, res, next) {}
 
 async function destroy(req, res, next) {
   try {
@@ -82,7 +56,7 @@ module.exports = {
   update: [
     asyncErrorBoundary(validateReviewId),
     validateReviewUpdateFields,
-    asyncErrorBoundary(update),
+    // asyncErrorBoundary(update),
   ],
   delete: [asyncErrorBoundary(validateReviewId), destroy],
 };
