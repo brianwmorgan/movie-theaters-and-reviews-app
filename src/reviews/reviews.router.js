@@ -8,4 +8,6 @@ router
   .delete(controller.delete)
   .all(methodNotAllowed);
 
+router.route("/").get(controller.readReviewsForMovie).all(methodNotAllowed);
+
 module.exports = router;

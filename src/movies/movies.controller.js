@@ -1,6 +1,8 @@
 const moviesService = require("./movies.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 
+// MIDDLEWARE VALIDATORS //
+
 //  *** refactor to use try/catch ??? ***
 async function validateMovieId(req, res, next) {
   const { movieId } = req.params;
@@ -14,6 +16,8 @@ async function validateMovieId(req, res, next) {
     message: "Movie cannot be found.",
   });
 }
+
+// HTTP METHODS //
 
 async function list(req, res, next) {
   try {
@@ -34,8 +38,10 @@ async function read(req, res, next) {
   }
 }
 
+// EXPORT //
+
 module.exports = {
-  validateMovieId,
   list,
   read: [asyncErrorBoundary(validateMovieId), read],
+  validateMovieId,
 };

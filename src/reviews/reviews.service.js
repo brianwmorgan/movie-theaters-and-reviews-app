@@ -1,9 +1,5 @@
 const knex = require("../db/connection");
 
-function getCritic(criticId) {
-  return knex("critics").select("*").where({ critic_id: criticId }).first();
-}
-
 function read(reviewId) {
   return knex("reviews").select("*").where({ review_id: reviewId }).first();
 }
@@ -14,9 +10,18 @@ function destroy(reviewId) {
   return knex("reviews").where({ review_id: reviewId }).del();
 }
 
+function getCritic(criticId) {
+  return knex("critics").select("*").where({ critic_id: criticId }).first();
+}
+
+function getReviewsForMovie(movieId) {
+  return knex("reviews").select("*").where({ movie_id: movieId });
+}
+
 module.exports = {
-  getCritic,
   read,
   update,
   destroy,
+  getCritic,
+  getReviewsForMovie,
 };

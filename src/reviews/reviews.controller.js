@@ -50,6 +50,18 @@ async function destroy(req, res, next) {
   }
 }
 
+async function readReviewsForMovie(req, res, next) {
+	const reviews = await reviewsService.getReviewsForMovie(res.locals.movie.movie_id);
+
+	for(let review of reviews) {
+		const critic = await reviewsService.getCritic(review.critic_id);
+
+		review["critic"] = critic;
+	}
+
+	res.json({ data: reviews });
+}
+
 // EXPORT //
 
 module.exports = {
@@ -59,4 +71,5 @@ module.exports = {
     // asyncErrorBoundary(update),
   ],
   delete: [asyncErrorBoundary(validateReviewId), destroy],
+  readReviewsForMovie,
 };

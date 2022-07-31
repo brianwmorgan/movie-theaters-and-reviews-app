@@ -1,5 +1,7 @@
 const theatersService = require("./theaters.service");
 
+// HTTP METHODS //
+
 async function list(req, res, next) {
   try {
     const theaters = await theatersService.listTheaters();
@@ -14,6 +16,8 @@ async function list(req, res, next) {
     next(error);
   }
 }
+
+// EXPORT ///
 
 module.exports = {
   list,
