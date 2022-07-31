@@ -38,7 +38,14 @@ function validateReviewUpdateFields(req, res, next) {
 
 // HTTP METHODS //
 
-async function update(req, res, next) {}
+async function update(req, res, next) {
+  const updatedReview = {
+    ...req.body.data,
+    review_id: res.locals.review.review_id,
+  };
+  const data = await reviewsService.update(updatedReview);
+  res.json({ data });
+}
 
 async function destroy(req, res, next) {
   try {
@@ -51,15 +58,17 @@ async function destroy(req, res, next) {
 }
 
 async function readReviewsForMovie(req, res, next) {
-	const reviews = await reviewsService.getReviewsForMovie(res.locals.movie.movie_id);
+  const reviews = await reviewsService.getReviewsForMovie(
+    res.locals.movie.movie_id
+  );
 
-	for(let review of reviews) {
-		const critic = await reviewsService.getCritic(review.critic_id);
+  for (let review of reviews) {
+    const critic = await reviewsService.getCritic(review.critic_id);
 
-		review["critic"] = critic;
-	}
+    review["critic"] = critic;
+  }
 
-	res.json({ data: reviews });
+  res.json({ data: reviews });
 }
 
 // EXPORT //
@@ -68,7 +77,7 @@ module.exports = {
   update: [
     asyncErrorBoundary(validateReviewId),
     validateReviewUpdateFields,
-    // asyncErrorBoundary(update),
+    asyncErrorBoundary(update),
   ],
   delete: [asyncErrorBoundary(validateReviewId), destroy],
   readReviewsForMovie,
