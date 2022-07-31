@@ -35,6 +35,7 @@ async function read(req, res, next) {
 }
 
 module.exports = {
+  validateMovieId,
   list,
   read: [asyncErrorBoundary(validateMovieId), read],
 };
