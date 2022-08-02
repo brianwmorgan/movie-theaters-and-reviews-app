@@ -3,16 +3,20 @@ const reviewsService = require("./reviews.service");
 // MIDDLEWARE VALIDATORS //
 
 async function validateReviewId(req, res, next) {
-  const { reviewId } = req.params;
-  const review = await reviewsService.read(reviewId);
-  if (review) {
-    res.locals.review = review;
-    return next();
+  try {
+    const { reviewId } = req.params;
+    const review = await reviewsService.read(reviewId);
+    if (review) {
+      res.locals.review = review;
+      return next();
+    }
+    return next({
+      status: 404,
+      message: "Review cannot be found.",
+    });
+  } catch (error) {
+    next(error);
   }
-  return next({
-    status: 404,
-    message: "Review cannot be found.",
-  });
 }
 
 // REFACTOR?
@@ -70,17 +74,21 @@ async function destroy(req, res, next) {
 }
 
 async function readReviewsForMovie(req, res, next) {
-  const reviews = await reviewsService.getReviewsForMovie(
-    res.locals.movie.movie_id
-  );
+  try {
+    const reviews = await reviewsService.getReviewsForMovie(
+      res.locals.movie.movie_id
+    );
 
-  for (let review of reviews) {
-    const critic = await reviewsService.getCritic(review.critic_id);
+    for (let review of reviews) {
+      const critic = await reviewsService.getCritic(review.critic_id);
 
-    review["critic"] = critic;
+      review["critic"] = critic;
+    }
+
+    res.json({ data: reviews });
+  } catch (error) {
+    next(error);
   }
-
-  res.json({ data: reviews });
 }
 
 // EXPORT //

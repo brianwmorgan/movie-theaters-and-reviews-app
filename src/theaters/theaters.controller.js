@@ -5,16 +5,25 @@ const theatersService = require("./theaters.service");
 async function list(req, res, next) {
   const { movieId } = req.params;
   try {
-    const theaters = await theatersService.listTheaters();
+    const theaters = await theatersService.list();
     for (let theater of theaters) {
-      const movies = await theatersService.listMoviesAtEachTheater(
-        theater.theater_id,
-        movieId
-      );
+      const movies = await theatersService.listMovies(theater.theater_id);
       theater["movies"] = movies;
     }
-    console.log(req.params);
     res.json({ data: theaters });
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function listTheatersShowingMovie(req, res, next) {
+  try {
+    if (res.locals.movie) {
+      return res.json({
+        data: await theatersService.listTheaters(res.locals.movie.movie_id),
+      });
+    }
+    next();
   } catch (error) {
     next(error);
   }
@@ -23,5 +32,5 @@ async function list(req, res, next) {
 // EXPORT ///
 
 module.exports = {
-  list,
+  list: [listTheatersShowingMovie, list],
 };
