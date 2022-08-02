@@ -1,5 +1,7 @@
 const knex = require("../db/connection");
 
+// SERVICE FUNCTIONS //
+
 function listTheaters() {
   return knex("theaters").select("*");
 }
@@ -10,6 +12,8 @@ function listMoviesAtEachTheater(theaterId) {
     .where({ theater_id: theaterId })
     .select("movies.*");
 }
+
+// EXPORT //
 
 module.exports = {
   listTheaters,

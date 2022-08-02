@@ -1,5 +1,7 @@
 const knex = require("../db/connection");
 
+// SERVICE FUNCTIONS //
+
 function read(reviewId) {
   return knex("reviews").select("*").where({ review_id: reviewId }).first();
 }
@@ -22,6 +24,8 @@ function getCritic(criticId) {
 function getReviewsForMovie(movieId) {
   return knex("reviews").select("*").where({ movie_id: movieId });
 }
+
+// EXPORT //
 
 module.exports = {
   read,

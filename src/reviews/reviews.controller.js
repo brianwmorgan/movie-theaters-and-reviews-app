@@ -1,5 +1,4 @@
 const reviewsService = require("./reviews.service");
-const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 
 // MIDDLEWARE VALIDATORS //
 
@@ -18,42 +17,46 @@ async function validateReviewId(req, res, next) {
 
 // REFACTOR?
 function validateReviewUpdateFields(req, res, next) {
-  const { data: { score = null, content = null } = {} } = req.body;
-  const updatedReview = {};
-  if (!score && !content) {
-    return next({
-      status: 400,
-      message: "Updated review is missing a score and/or content.",
-    });
+  try {
+    const { data: { score = null, content = null } = {} } = req.body;
+    const updatedReview = {};
+    if (!score && !content) {
+      return next({
+        status: 400,
+        message: "Updated review is missing a score and/or content.",
+      });
+    }
+    if (score) {
+      updatedReview.score = score;
+    }
+    if (content) {
+      updatedReview.content = content;
+    }
+    res.locals.update = updatedReview;
+    next();
+  } catch (error) {
+    next(error);
   }
-  if (score) {
-    updatedReview.score = score;
-  }
-  if (content) {
-    updatedReview.content = content;
-  }
-  res.locals.update = updatedReview;
-  next();
 }
 
 // HTTP METHODS //
 
 async function update(req, res, next) {
   try {
-  const newReview = {
-    ...req.body.data,
-    review_id: res.locals.review.review_id,
-  };
-  const updatedReview = await reviewsService.update(newReview);
-  const review = await reviewsService.read(res.locals.review.review_id);
-  const reviewToReturn = {
-    ...review,
-    critic: await reviewsService.getCritic(res.locals.review.critic_id),
-  };
-  res.json({ data: reviewToReturn });
-} catch (error) {
-  next(error);
-}
+    const newReview = {
+      ...req.body.data,
+      review_id: res.locals.review.review_id,
+    };
+    const updatedReview = await reviewsService.update(newReview);
+    const review = await reviewsService.read(res.locals.review.review_id);
+    const reviewToReturn = {
+      ...review,
+      critic: await reviewsService.getCritic(res.locals.review.critic_id),
+    };
+    res.json({ data: reviewToReturn });
+  } catch (error) {
+    next(error);
+  }
 }
 
 async function destroy(req, res, next) {
@@ -83,11 +86,7 @@ async function readReviewsForMovie(req, res, next) {
 // EXPORT //
 
 module.exports = {
-  update: [
-    asyncErrorBoundary(validateReviewId),
-    validateReviewUpdateFields,
-    update,
-  ],
-  delete: [asyncErrorBoundary(validateReviewId), destroy],
+  update: [validateReviewId, validateReviewUpdateFields, update],
+  delete: [validateReviewId, destroy],
   readReviewsForMovie,
 };
