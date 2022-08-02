@@ -39,12 +39,21 @@ function validateReviewUpdateFields(req, res, next) {
 // HTTP METHODS //
 
 async function update(req, res, next) {
-  const updatedReview = {
+  try {
+  const newReview = {
     ...req.body.data,
     review_id: res.locals.review.review_id,
   };
-  const data = await reviewsService.update(updatedReview);
-  res.json({ data });
+  const updatedReview = await reviewsService.update(newReview);
+  const review = await reviewsService.read(res.locals.review.review_id);
+  const reviewToReturn = {
+    ...review,
+    critic: await reviewsService.getCritic(res.locals.review.critic_id),
+  };
+  res.json({ data: reviewToReturn });
+} catch (error) {
+  next(error);
+}
 }
 
 async function destroy(req, res, next) {
@@ -77,7 +86,7 @@ module.exports = {
   update: [
     asyncErrorBoundary(validateReviewId),
     validateReviewUpdateFields,
-    asyncErrorBoundary(update),
+    update,
   ],
   delete: [asyncErrorBoundary(validateReviewId), destroy],
   readReviewsForMovie,
