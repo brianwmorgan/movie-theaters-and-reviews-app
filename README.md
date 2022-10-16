@@ -4,7 +4,7 @@ We Love Movies is a full-stack application that allows a user to look up movies,
 
 ## Links
 
-[Backend]() deployed to Vercel (use `/reserva` or `/tabl` routes listed below)
+[Backend](https://welovemovies-backend-brian.herokuapp.com/movies) deployed to Heroku (use `/reserva` or `/tabl` routes listed below)
 
 ## Technology
 
