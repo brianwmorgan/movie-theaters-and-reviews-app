@@ -1,6 +1,6 @@
 # We Love Movies | Application Server
 
-The We Love Movies server is a backend API built with RESTful architecture to handle HTTP requests from the frontend client application, which was dedsigned by Thinkful. The server allows a user to look up movies, theaters, and reviews from the client app. It also allows an admin to update and delete reviews.  
+The We Love Movies server is a backend API built with RESTful architecture to handle HTTP requests from the frontend client application, which was designed by Thinkful. The server allows a user to look up movies, theaters, and reviews from the client app. It also allows an admin to update and delete reviews.  
 
 ## Links
 
