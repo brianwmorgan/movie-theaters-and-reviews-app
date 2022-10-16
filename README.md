@@ -13,6 +13,7 @@ The We Love Movies server is a backend API built with RESTful architecture to ha
 ![Javascript icon](images/javascript.png)
 ![Node.js icon](images/node-js.png)
 ![Express icon](images/express.png)
+![PostgreSQL icon](images/postgresql.png)
 ![Knex icon](images/knex.png)  
   
 ## Installation
