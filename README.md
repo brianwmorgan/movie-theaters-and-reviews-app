@@ -9,12 +9,13 @@ We Love Movies is a full-stack application that allows a user to look up movies,
 
 ## Technology
 
-- Node.js, Express, Knex  
+- JavaScript, Node.js, Express, Knex  
   
+![Javascript icon](images/javascript.png)
 ![Node.js icon](images/node-js.png)
 ![Express icon](images/express.png)
 ![Knex icon](images/knex.png)  
-
+  
 ## Installation
 
 1. Fork and clone this repository.
