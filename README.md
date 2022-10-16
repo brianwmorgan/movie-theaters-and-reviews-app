@@ -8,7 +8,7 @@ The We Love Movies server is a backend API built with RESTful architecture to ha
 
 ## Technology
 
-- JavaScript, Node.js, Express, Knex  
+- JavaScript, Node.js, Express, PostgreSQL, Knex  
   
 ![Javascript icon](images/javascript.png)
 ![Node.js icon](images/node-js.png)
