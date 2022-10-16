@@ -1,4 +1,4 @@
-# We Love Movies | Movie Theaters and Reviews App
+# We Love Movies | Application Server
 
 We Love Movies is a full-stack application that allows a user to look up movies, theaters, and reviews. It also allows an admin to edit content. The frontend was designed by Thinkful. I designed the backend server with a RESTful architecture to handle all HTTP requests made by the frontend.
 
