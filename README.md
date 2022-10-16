@@ -30,4 +30,32 @@ We Love Movies is a full-stack application that allows a user to look up movies,
 1. Run `npm install` to install project dependencies.
 1. Run `npm start' to start the client app locally.
 
-## How the App Works
+## Backend
+
+### Routes
+
+The API allows for the following routes:
+
+Method | Route | Description
+ -|-|-
+| `GET` | `/reservations` | Lists all reservations for the current date.
+| `GET` | `/reservations?date=YYYY-MM-DD` | Lists all reservations on the query date.
+| `POST` | `/reservations` | Creates a new reservation. No `reservation_id` or `status` need to be provided. All other fields are required.
+| `GET` | `/reservations/:reservation_id` | Reads a specific reservation by `reservation_id`.
+| `PUT` | `/reservations/:reservation_id` | Updates a specific reservation by `reservation_id`.
+| `PUT` | `/reservations/:reservation_id/status` | Updates the status of a specific reservation by `reservation_id`.
+| `GET` | `/tables` | Lists all tables.
+| `POST` | `/tables` | Creates a new table. Only `table_name` and `capacity` need to be provided.
+| `PUT` | `/tables/:table_id/seat` | Assigns a table to a reservation and changes that reservation's `status` to _seated_.
+| `DELETE` | `/tables/:table_id/seat` | Removes a reservation from a table and changes that reservation's `status` to _finished_.
+
+### HTTP Methods
+
+| Route       | Get         | Put        | Post         | Delete       |      
+| ----------- | ----------- | ---------- | ------------ | ------------ |
+| ```/reservations```      | ✅      |❌      | ✅    |       ❌       |
+| ```/reservations/:reservation_id```   | ✅        | ✅       | ❌         | ❌         |
+| ```/reservations/:reservation_id/status```      | ❌      |✅      | ❌    |       ❌       |
+| ```/tables```   | ✅        | ❌       | ✅         | ❌         |
+| ```/tables/:table_id```   | ✅        | ❌       | ❌         | ❌         |
+| ```/tables/:table_id/seat```   | ❌        | ✅       | ❌         | ✅         |
