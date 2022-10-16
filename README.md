@@ -4,7 +4,6 @@ We Love Movies is a full-stack application that allows a user to look up movies,
 
 ## Links
 
-[Frontend]() deployed to Vercel (designed by Thinkful)    
 [Backend]() deployed to Vercel (use `/reserva` or `/tabl` routes listed below)
 
 ## Technology
@@ -18,8 +17,17 @@ We Love Movies is a full-stack application that allows a user to look up movies,
   
 ## Installation
 
+### Backend
+
 1. Fork and clone this repository.
-2. Run `npm install` to install project dependencies.
-3. Run `npm start` to start the server locally.
+1. Run `npm install` to install project dependencies.
+1. Run `npm start` to start the server locally.  
+
+### Frontend
+
+1. Go to Thinkful's [starter code on GitHub](https://github.com/Thinkful-Ed/starter-movie-front-end).
+1. Fork and clone the repository.
+1. Run `npm install` to install project dependencies.
+1. Run `npm start' to start the client app locally.
 
 ## How the App Works
