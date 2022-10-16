@@ -4,7 +4,8 @@ The We Love Movies server is a backend API built with RESTful architecture to ha
 
 ## Links
 
-[Server](https://welovemovies-backend-brian.herokuapp.com/movies) deployed to Heroku (use the `/movies`, `/theaters`, or `/reviews` routes listed below)
+[Server](https://welovemovies-backend-brian.herokuapp.com/movies) deployed to Heroku (use the `/movies`, `/theaters`, or `/reviews` routes listed below)  
+[Client App](https://we-love-movies-app-front-end.vercel.app/) designed by [Thinkful](https://github.com/Thinkful-Ed/starter-movie-front-end)  
 
 ## Technology
 
